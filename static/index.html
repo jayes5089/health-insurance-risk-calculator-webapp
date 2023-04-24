@@ -1,0 +1,187 @@
+<!-- 
+    Project: Health Insurance Tool
+    Written by: Jason Yescas
+    Credit: Eric J Pogue
+    4/12/2023
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Health Insurance Risk Calculator</title>
+        <link rel="stylesheet" href="riskcalc.css">
+    </head>
+
+    <body style="background-color: lightblue">
+        <h1>Health Risk Calculator</h1>
+        <h2>This website was made to help calculate your health risk level.</h2>
+        <p></p>
+        <h2>Please follow the prompts below to calculate where your health stands.</h2>
+        
+        <br /><br />
+
+        <div class="bmiRow">
+            <div class="bmicalc">
+                <label>What is your height in Feet and Inches?</label><br />
+                <input type="text" id="feet" placeholder="Feet">
+                <input type="text" id="inches" placeholder="Inches"><br /><br />
+
+                <label>What is your weight in pounds?</label><br />
+                <input type="text" id="weight" placeholder="Weight"><br /><br />
+
+                <button onclick="bmiCalc()">Calculate BMI</button><br /><br />
+                <label>Your Body Mass Index is: <span id="bmiAns"></span></label>
+            </div>
+
+            <br /><br />
+
+            <div class="bmi">
+                <label>What is your Body Mass Index (BMI)?</label><br /><br />
+                <select id="bmiSelect">
+                    <option value="0">Normal (18.5 - 24.9)</option>
+                    <option value="30">Overweight (25.0 - 29.9)</option>
+                    <option value="75">Other (30.0 - 34.9)</option>
+                </select>
+                <br /><br />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="age">
+                <label>How old are you?</label><br />
+                <select id="ageSelect">
+                    <option value="0">Less than 30 years old</option>
+                    <option value="10">Between 30 and 45 years old</option>
+                    <option value="20">Between 45 to 60 years old</option>
+                    <option value="30">Older than 60 years old</option>
+                </select>
+                <br /><br />
+            </div>
+
+            <div class="bp">
+                <label>What is your blood pressure?</label><br />
+                <select id="bpSelect">
+                    <option value="0">Normal (Less than 120 Systolic and 80 Diastolic)</option>
+                    <option value="15">Elevated (120 - 129 Systolic and less than 80 Diastolic)</option>
+                    <option value="30">High BP / Stage 1 (130 - 139 Systolic and 80 - 89 Diastolic)</option>
+                    <option value="75">High BP / Stage 2 (140+ Systolic and 90+ Diastolic)</option>
+                    <option value="100">Hyperextensive Crisis (180+ Systolic and 120+ Diastolic)</option>
+                </select>
+                <br /><br />
+            </div>
+        </div>
+
+        <br /><br />
+
+        <div class="row1">
+            <div class="diabetic">
+                <label>Do you have diabetes?</label><br />
+                <select id="diaSelect">
+                    <option value="0">No</option>
+                    <option value="10">Yes</option>
+                </select>
+                <br /><br />
+            </div>
+
+            <div class="cancer">
+                <label>Do you have cancer?</label><br />
+                <select id="canSelect">
+                    <option value="0">No</option>
+                    <option value="10">Yes</option>
+                </select>
+                <br /><br />
+            </div>
+
+            <div class="alzheim">
+                <label>Do you have Alzheimer's?</label><br />
+                <select id="alzSelect">
+                    <option value="0">No</option>
+                    <option value="10">Yes</option>
+                </select>
+                <br /><br /><br />
+            </div>
+        </div>
+
+        <br /><br />
+        <div class="button">
+            <button onclick="riskCalc()">Click To Calculate Risk</button>
+        </div>
+
+    <script>
+    console.log("Warming Up Risk Calculator. Please Wait...");
+
+    function bmiCalc() {
+        const feet = parseInt(document.getElementById("feet").value);
+        const inches = parseInt(document.getElementById("inches").value);
+        const weight = parseInt(document.getElementById("weight").value);
+
+        const height = feet * 12 + parseInt(inches);
+        const bmiAns = weight / (height * height) * 703;
+
+        document.getElementById("bmiAns").innerHTML = bmiAns.toFixed(2);
+    }
+
+    function riskCalc() {
+        console.log("riskCalc()");
+        var ageVal = parseInt(document.getElementById("ageSelect").value);
+        var bmiVal = parseInt(document.getElementById("bmiSelect").value);
+        var bpVal = parseInt(document.getElementById("bpSelect").value);
+        var diabetesVal = parseInt(document.getElementById("diaSelect").value);
+        var cancerVal = parseInt(document.getElementById("canSelect").value);
+        var alzheimerVal = parseInt(document.getElementById("alzSelect").value);
+
+        var ageScore = 0;
+        if (ageVal < 30) 
+            {ageScore = 0;}
+
+        else if (ageVal < 45)
+            {ageScore = 10;}
+
+        else if (ageVal < 60)
+            {ageScore = 20;}
+
+        else
+            {ageScore = 30;}
+
+
+        var bmiScore = 0;
+        if (bmiVal === 0)
+            {bmiScore = 0;}
+
+        else if (bmiVal === 30)
+            {bmiScore = 30;}
+
+        else
+            {bmiScore = 75;}
+
+
+        var bpScore = 0;
+        if (bpVal === 0)
+            {bpScore = 0;}
+
+        else if (bpVal === 15)
+            {bpScore = 15;}
+
+        else if (bpVal === 30)
+            {bpScore = 30;}
+
+        else if (bpVal === 75)
+            {bpScore = 75;}
+
+        else
+            {bpScore = 100;}
+
+        var heriticalScore = diabetesVal + cancerVal + alzheimerVal;
+        var totalScore = ageScore + bmiScore + bpScore + heriticalScore;
+
+        if (totalScore < 50)
+            {alert("Your risk level is low.");}
+        else if (totalScore < 75)
+            {alert("Your risk level is moderate.");}
+        else
+            {alert("Your risk level is high.");}
+    }
+    </script>
+    </body>
+</html>

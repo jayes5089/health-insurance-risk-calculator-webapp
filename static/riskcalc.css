@@ -1,0 +1,17 @@
+h1{ text-align: center;}
+h2{ text-align: center;}
+
+.row{text-align: center;}
+.age{display:inline-table; width: 350px;}
+.bp{display:inline-table; width: 350px;}
+
+.row1{text-align: center;}
+.diabetic{display:inline-table; width: 200px;}
+.cancer{display:inline-table; width: 200px;}
+.alzheim{display:inline-table; width: 200px;}
+
+.bmiRow{text-align: center;}
+.bmicalc{display:inline-table; width: 200px;}
+.bmi{display:inline-table; width: 200px;}
+
+.button{text-align: center;}
